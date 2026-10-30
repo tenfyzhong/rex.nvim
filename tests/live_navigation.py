@@ -13,6 +13,10 @@ import time
 import unittest
 
 
+def navigation_ready(expr):
+    return expr('!empty(maparg("<C-h>", "n", 0, 1))') == "1"
+
+
 class LiveNavigation(unittest.TestCase):
     def test_window_and_pane_navigation(self):
         rex = os.environ.get("REX_EXECUTABLE") or shutil.which("rex")
@@ -43,8 +47,7 @@ class LiveNavigation(unittest.TestCase):
                     self.fail("Timed out waiting for navigation")
 
                 wait_for(lambda: Path(socket).exists())
-                wait_for(lambda: expr('get(maparg("<C-h>", "n", 0, 1), "desc", "")')
-                         == "rex: go to left window")
+                wait_for(lambda: navigation_ready(expr))
                 pane = json.loads(cli("split", "-s", session, "-b", editor,
                                       "--split", "right", "--focus=false", "--json"))["block_ids"][0]
 

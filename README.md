@@ -61,8 +61,10 @@ can override these bindings.
 ## Tests
 
 Install `nvim-lua/plenary.nvim` at `~/.local/share/nvim/lazy/plenary.nvim`, then
-run `make test`. Tests cover navigation, buffer preservation, session detection,
-command failures, and Rex-side key routing. GitHub Actions runs the same suite.
+run `make test` (Python 3 is also required). Tests cover navigation, buffer
+preservation, session detection, command failures, and Rex-side key routing.
+Readiness regression tests check mappings without descriptions, with custom
+descriptions, and missing mappings. GitHub Actions runs the same suite.
 
 For live acceptance against your installed configurations, run:
 

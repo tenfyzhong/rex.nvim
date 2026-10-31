@@ -7,7 +7,13 @@ end
 
 for key, direction in pairs(directions) do
   local target = direction
-  rex.unbind("ctrl+" .. key)
+  local shortcut = "ctrl+" .. key
+  for _, binding in ipairs(rex.bindings()) do
+    if not binding.mode and binding.key == shortcut then
+      rex.unbind(shortcut)
+      break
+    end
+  end
   rex.bind("ctrl+" .. key, function(ctx)
     local process = rex.block.call("com.superlogical.terminal", "process", {
       session_id = ctx.session_id,
